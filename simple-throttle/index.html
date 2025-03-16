@@ -120,26 +120,30 @@
 <li><p><a class="reference internal" href="#installation" id="id4">Installation</a></p></li>
 <li><p><a class="reference internal" href="#configuration" id="id5">Configuration</a></p></li>
 <li><p><a class="reference internal" href="#configuring-wifi-and-ex-commandstation-details" id="id6">Configuring WiFi and EX-CommandStation details</a></p></li>
+<li><p><a class="reference internal" href="#configuring-a-local-roster" id="id7">Configuring a local roster</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#operation" id="id7">Operation</a></p>
+<li><p><a class="reference internal" href="#operation" id="id8">Operation</a></p>
 <ul>
-<li><p><a class="reference internal" href="#select-server-menu" id="id8">“Select server” menu</a></p></li>
-<li><p><a class="reference internal" href="#select-loco-menu" id="id9">“Select loco” menu</a></p></li>
-<li><p><a class="reference internal" href="#throttle-screen" id="id10">Throttle screen</a></p></li>
+<li><p><a class="reference internal" href="#select-server-menu" id="id9">“Select server” menu</a></p></li>
+<li><p><a class="reference internal" href="#select-loco-menu" id="id10">“Select loco” menu</a></p></li>
+<li><p><a class="reference internal" href="#select-action-menu" id="id11">“Select action” menu</a></p></li>
+<li><p><a class="reference internal" href="#throttle-screen" id="id12">Throttle screen</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 </aside>
-<p>To accompany my mimic panel’s serial throttle (see <span class="xref std std-doc">/serial-throttle/index</span>), I decided a very simple WiFi enabled, palm-sized throttle I could walk around the layout with would be a very handy addition.</p>
-<p>Hence the creation of this DCC-EX Simple Throttle.</p>
+<p>To accompany my mimic panel’s serial throttle (see <a class="reference internal" href="../tri-throttle/index.html"><span class="doc">DCC-EX Tri-Throttle</span></a>), I decided a very simple WiFi enabled, palm-sized throttle I could walk around the layout with would be a very handy addition, hence the creation of this DCC-EX Simple Throttle.</p>
 <p>Note that there is an option to run this on an STM32F103C8 Bluepill via a serial connection instead.</p>
+<a class="reference internal image-reference" href="../_images/dccex-simple-throttle.png"><img alt="DCC-EX Simple Throttle" src="../_images/dccex-simple-throttle.png" style="width: 330.59999999999997px; height: 411.3px;" /></a>
 <section id="hardware">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">Hardware</a><a class="headerlink" href="#hardware" title="Permalink to this heading"></a></h2>
 <p>The hardware required is pretty simple, consisting of a Wemos D1 Mini or Lolin32 Lite (which incorporates a LiPO battery connector), a LiPO battery, rotary encoder (such as the KY-040), and an SH1106 compatible OLED (either SPI or I2C).</p>
 <p>I opted for a 1.3” OLED for ease of readability, as it’s still small enough to fit in the palm of my hand when assembled with the rest of the hardware.</p>
-<p>I have designed and 3D printed a case to suit the specific components I used as well (I have yet to upload STL to Thingiverse).</p>
+<p>I have designed and 3D printed a case to suit the specific components which is available on <a class="reference external" href="https://www.thingiverse.com/thing:6980561">Thingiverse</a>.</p>
+<p>I neglected to take any assembly photos, but this is a look inside the completed throttle, noting that the battery is mounted first underneath the Lolin32 Lite board.</p>
+<a class="reference internal image-reference" href="../_images/assembly.png"><img alt="Assembly Inside" src="../_images/assembly.png" style="width: 302.40000000000003px; height: 403.20000000000005px;" /></a>
 <section id="component-connections">
 <h3><a class="toc-backref" href="#id2" role="doc-backlink">Component connections</a><a class="headerlink" href="#component-connections" title="Permalink to this heading"></a></h3>
 <p>This table outlines the pins in use to connect to the various components.</p>
@@ -265,34 +269,79 @@
 </pre></div>
 </div>
 </section>
+<section id="configuring-a-local-roster">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Configuring a local roster</a><a class="headerlink" href="#configuring-a-local-roster" title="Permalink to this heading"></a></h3>
+<p>If you wish, you can configure a local roster of Locos that will be added to the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">Loco</span></code> menu, and each of these items will be prefaced with <code class="docutils literal notranslate"><span class="pre">*</span></code> to indicate they are not retrieved from your EX-CommandStation roster.</p>
+<p>Similar to setting up the WiFi connections above, set <code class="docutils literal notranslate"><span class="pre">LOCAL_ROSTER_COUNT</span></code> to the exact number of local roster entries you are adding, and add the exact same number of entries to:</p>
+<ul class="simple">
+<li><p>LOCAL_ROSTER_NAMES which is the friendly name you will see in the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">Loco</span></code> menu</p></li>
+<li><p>LOCAL_ROSTER_ADDRESSES which is the DCC accress of the Loco</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define LOCAL_ROSTER_COUNT 3</span>
+
+<span class="cp">#define LOCAL_ROSTER_NAMES {&quot;Local Loco 1001&quot;, &quot;Local Loco 1002&quot;, &quot;Local Loco 1003&quot;}</span>
+<span class="cp">#define LOCAL_ROSTER_ADDRESSES {1001, 1002, 1003}</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="operation">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">Operation</a><a class="headerlink" href="#operation" title="Permalink to this heading"></a></h2>
-<p>When navigating menus, scroll up and down with the rotary encoder, and click the rotary encoder’s button to select the highlighted item.</p>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Operation</a><a class="headerlink" href="#operation" title="Permalink to this heading"></a></h2>
+<p>When navigating menus, scroll up and down with the rotary encoder, and click the rotary encoder’s button to select the highlighted item. Depending on the current context, the rotary encoder button can be double clicked or held to perform different actions.</p>
 <p>During operation, there are three contexts on screen to switch through:</p>
 <ul class="simple">
-<li><p>“Select server” menu</p></li>
-<li><p>“Select loco” menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">server</span></code> menu (not shown when using Bluepill with a serial connection)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">loco</span></code> menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">action</span></code> menu</p></li>
 <li><p>Throttle screen</p></li>
 </ul>
 <section id="select-server-menu">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink">“Select server” menu</a><a class="headerlink" href="#select-server-menu" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">“Select server” menu</a><a class="headerlink" href="#select-server-menu" title="Permalink to this heading"></a></h3>
 <p>When starting, you will first see the “Select server” menu (except on Bluepill with a serial connection). Select one of the EX-CommandStation entries configured in the <a class="reference internal" href="#configuring-wifi-and-ex-commandstation-details"><span class="std std-ref">Configuring WiFi and EX-CommandStation details</span></a> section to connect to it.</p>
 <p>Once connected, the <a class="reference internal" href="#select-loco-menu"><span class="std std-ref">“Select loco” menu</span></a> will be displayed.</p>
 </section>
 <section id="select-loco-menu">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">“Select loco” menu</a><a class="headerlink" href="#select-loco-menu" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">“Select loco” menu</a><a class="headerlink" href="#select-loco-menu" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../_images/select-loco.png"><img alt="Select Loco menu" src="../_images/select-loco.png" style="width: 359.4px; height: 441.59999999999997px;" /></a>
 <p>Providing a roster of locomotives has been configured in the connected EX-CommandStation, selecting one from the menu will allow you to control it.</p>
-<p>Once selected, the <a class="reference internal" href="#throttle-screen"><span class="std std-ref">Throttle screen</span></a> will be displayed.</p>
-<p><strong>Not implemented yet</strong> If you wish to control a locomotive on the programming track instead of selecting a roster entry, holding the rotary encoder button down for more than half a second will cause the EX-CommandStation to attempt to read the DCC address. Providing the read was successful, the <a class="reference internal" href="#throttle-screen"><span class="std std-ref">Throttle screen</span></a> will be displayed.</p>
+<p>If you have configured a local roster as per <a class="reference internal" href="#configuring-a-local-roster"><span class="std std-ref">Configuring a local roster</span></a>, then these will be available in this menu, prefaced by a <code class="docutils literal notranslate"><span class="pre">*</span></code>.</p>
+<ul class="simple">
+<li><p>Select a Loco using the rotary encoder to scroll through the list, and press the button once to select a Loco</p></li>
+<li><p>Double clicking the rotary encoder button will navigate to the <a class="reference internal" href="#select-action-menu"><span class="std std-ref">“Select action” menu</span></a></p></li>
+<li><p>Holding the rotary encoder button down will cause the EX-CommandStation to attempt to read the Loco address from the programming track</p></li>
+</ul>
+<p>Once either a Loco is selected, or the programming track is read, the <a class="reference internal" href="#throttle-screen"><span class="std std-ref">Throttle screen</span></a> will be displayed. If reading the Loco on the programming track fails, you will be returned to the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">loco</span></code> menu.</p>
+</section>
+<section id="select-action-menu">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">“Select action” menu</a><a class="headerlink" href="#select-action-menu" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../_images/select-action.png"><img alt="Select Action menu" src="../_images/select-action.png" style="width: 341.7px; height: 400.5px;" /></a>
+<p>This menu allows you to perform various track power related actions.</p>
+<ul class="simple">
+<li><p>Single click the rotary encoder button to select an option</p></li>
+<li><p>Double click the rotary encoder button to return to the <a class="reference internal" href="#select-loco-menu"><span class="std std-ref">“Select loco” menu</span></a></p></li>
+<li><p>Join PROG Track - Joins the programming track to the main track, allowing a Loco to be operated on it</p></li>
+<li><p>Power Main On - Turns power on to the Main track only</p></li>
+<li><p>Power Main Off - Turns power off on the Main track only</p></li>
+<li><p>Power Prog On - Turns power on to the Prog track only</p></li>
+<li><p>Power Prog Off - Turns power off on the Prog track only</p></li>
+</ul>
 </section>
 <section id="throttle-screen">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">Throttle screen</a><a class="headerlink" href="#throttle-screen" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Throttle screen</a><a class="headerlink" href="#throttle-screen" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../_images/throttle-screen.png"><img alt="Throttle Screen" src="../_images/throttle-screen.png" style="width: 348.0px; height: 409.8px;" /></a>
 <p>While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed.</p>
-<p>If speed is greater than zero, a single click will stop the selected locomotive, and holding the rotary encoder button for longer than half a second will trigger an emergency stop.</p>
-<p>If speed is zero, a single click of the rotary encoder button will change direction, and holding the rotary encoder button for longer than half a second will toggle track power on or off depending on the current state.</p>
-<p>Also when speed is zero, double clicking the rotary encoder will display the <a class="reference internal" href="#select-loco-menu"><span class="std std-ref">“Select loco” menu</span></a>. Selecting a different loco will release or forget the currently selected loco.</p>
-<p><strong>To do</strong> enable a way to toggle lights on and off.</p>
+<p>If speed is greater than zero:</p>
+<ul class="simple">
+<li><p>Single click the rotary encoder button to stop the selected locomotive</p></li>
+<li><p>Double click the rotary encoder button to toggle function 0 on and off, which is typically the headlight</p></li>
+<li><p>Hold the rotary encoder button for longer than half a second to trigger an emergency stop</p></li>
+</ul>
+<p>If speed is zero:</p>
+<ul class="simple">
+<li><p>Single click the rotary encoder button to change direction</p></li>
+<li><p>Double click the rotary encoder to display the <a class="reference internal" href="#select-loco-menu"><span class="std std-ref">“Select loco” menu</span></a></p></li>
+<li><p>Hold the rotary encoder button for longer than half a second to toggle track power on or off</p></li>
+</ul>
 </section>
 </section>
 </section>

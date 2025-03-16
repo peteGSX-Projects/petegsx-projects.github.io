@@ -8,11 +8,13 @@ DCC-EX Simple Throttle
       :depth: 2
       :local:
 
-To accompany my mimic panel's serial throttle (see :doc:`/serial-throttle/index`), I decided a very simple WiFi enabled, palm-sized throttle I could walk around the layout with would be a very handy addition.
-
-Hence the creation of this DCC-EX Simple Throttle.
+To accompany my mimic panel's serial throttle (see :doc:`/tri-throttle/index`), I decided a very simple WiFi enabled, palm-sized throttle I could walk around the layout with would be a very handy addition, hence the creation of this DCC-EX Simple Throttle.
 
 Note that there is an option to run this on an STM32F103C8 Bluepill via a serial connection instead.
+
+.. image:: /_static/images/simple-throttle/dccex-simple-throttle.png
+  :alt: DCC-EX Simple Throttle
+  :scale: 30%
 
 Hardware
 ========
@@ -21,7 +23,13 @@ The hardware required is pretty simple, consisting of a Wemos D1 Mini or Lolin32
 
 I opted for a 1.3" OLED for ease of readability, as it's still small enough to fit in the palm of my hand when assembled with the rest of the hardware.
 
-I have designed and 3D printed a case to suit the specific components I used as well (I have yet to upload STL to Thingiverse).
+I have designed and 3D printed a case to suit the specific components which is available on `Thingiverse <https://www.thingiverse.com/thing:6980561>`_.
+
+I neglected to take any assembly photos, but this is a look inside the completed throttle, noting that the battery is mounted first underneath the Lolin32 Lite board.
+
+.. image:: /_static/images/simple-throttle/assembly.png
+  :alt: Assembly Inside
+  :scale: 20%
 
 Component connections
 ---------------------
@@ -148,15 +156,33 @@ When configuring the parameters:
   #define COMMANDSTATION_SSIDS { "SSID1", "SSID2" }
   #define COMMANDSTATION_PASSWORDS { "Password1", "Password2" }
 
+Configuring a local roster
+--------------------------
+
+If you wish, you can configure a local roster of Locos that will be added to the ``Select Loco`` menu, and each of these items will be prefaced with ``*`` to indicate they are not retrieved from your EX-CommandStation roster.
+
+Similar to setting up the WiFi connections above, set ``LOCAL_ROSTER_COUNT`` to the exact number of local roster entries you are adding, and add the exact same number of entries to:
+
+- LOCAL_ROSTER_NAMES which is the friendly name you will see in the ``Select Loco`` menu
+- LOCAL_ROSTER_ADDRESSES which is the DCC accress of the Loco
+
+.. code-block:: c++
+
+  #define LOCAL_ROSTER_COUNT 3
+
+  #define LOCAL_ROSTER_NAMES {"Local Loco 1001", "Local Loco 1002", "Local Loco 1003"}
+  #define LOCAL_ROSTER_ADDRESSES {1001, 1002, 1003}
+
 Operation
 =========
 
-When navigating menus, scroll up and down with the rotary encoder, and click the rotary encoder's button to select the highlighted item.
+When navigating menus, scroll up and down with the rotary encoder, and click the rotary encoder's button to select the highlighted item. Depending on the current context, the rotary encoder button can be double clicked or held to perform different actions.
 
 During operation, there are three contexts on screen to switch through:
 
-- "Select server" menu
-- "Select loco" menu
+- ``Select server`` menu (not shown when using Bluepill with a serial connection)
+- ``Select loco`` menu
+- ``Select action`` menu
 - Throttle screen
 
 "Select server" menu
@@ -169,29 +195,55 @@ Once connected, the :ref:`simple-throttle/index:"select loco" menu` will be disp
 "Select loco" menu
 ------------------
 
+.. image:: /_static/images/simple-throttle/select-loco.png
+  :alt: Select Loco menu
+  :scale: 30%
+
 Providing a roster of locomotives has been configured in the connected EX-CommandStation, selecting one from the menu will allow you to control it.
 
-Once selected, the :ref:`simple-throttle/index:throttle screen` will be displayed.
+If you have configured a local roster as per :ref:`simple-throttle/index:configuring a local roster`, then these will be available in this menu, prefaced by a ``*``.
 
-**Not implemented yet** If you wish to control a locomotive on the programming track instead of selecting a roster entry, holding the rotary encoder button down for more than half a second will cause the EX-CommandStation to attempt to read the DCC address. Providing the read was successful, the :ref:`simple-throttle/index:throttle screen` will be displayed.
+- Select a Loco using the rotary encoder to scroll through the list, and press the button once to select a Loco
+- Double clicking the rotary encoder button will navigate to the :ref:`simple-throttle/index:"select action" menu`
+- Holding the rotary encoder button down will cause the EX-CommandStation to attempt to read the Loco address from the programming track
 
-.. "Select action" menu
-.. --------------------
+Once either a Loco is selected, or the programming track is read, the :ref:`simple-throttle/index:throttle screen` will be displayed. If reading the Loco on the programming track fails, you will be returned to the ``Select loco`` menu.
 
-.. This menu allows you to toggle the track power on and off, and forget the currently selected loco.
+"Select action" menu
+--------------------
 
-.. If a loco has been selected for operation, you will be returned to the :ref:`simple-throttle/index:operate loco screen` after selecting an item, otherwise you will return to the :ref:`simple-throttle/index:"select loco" menu`.
+.. image:: /_static/images/simple-throttle/select-action.png
+  :alt: Select Action menu
+  :scale: 30%
+
+This menu allows you to perform various track power related actions.
+
+- Single click the rotary encoder button to select an option
+- Double click the rotary encoder button to return to the :ref:`simple-throttle/index:"select loco" menu`
+
+- Join PROG Track - Joins the programming track to the main track, allowing a Loco to be operated on it
+- Power Main On - Turns power on to the Main track only
+- Power Main Off - Turns power off on the Main track only
+- Power Prog On - Turns power on to the Prog track only
+- Power Prog Off - Turns power off on the Prog track only
 
 Throttle screen
 -------------------
 
+.. image:: /_static/images/simple-throttle/throttle-screen.png
+  :alt: Throttle Screen
+  :scale: 30%
+
 While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed.
 
-If speed is greater than zero, a single click will stop the selected locomotive, and holding the rotary encoder button for longer than half a second will trigger an emergency stop.
+If speed is greater than zero:
 
-If speed is zero, a single click of the rotary encoder button will change direction, and holding the rotary encoder button for longer than half a second will toggle track power on or off depending on the current state.
+- Single click the rotary encoder button to stop the selected locomotive
+- Double click the rotary encoder button to toggle function 0 on and off, which is typically the headlight
+- Hold the rotary encoder button for longer than half a second to trigger an emergency stop
 
-Also when speed is zero, double clicking the rotary encoder will display the :ref:`simple-throttle/index:"select loco" menu`. Selecting a different loco will release or forget the currently selected loco.
+If speed is zero:
 
-
-**To do** enable a way to toggle lights on and off.
+- Single click the rotary encoder button to change direction
+- Double click the rotary encoder to display the :ref:`simple-throttle/index:"select loco" menu`
+- Hold the rotary encoder button for longer than half a second to toggle track power on or off
