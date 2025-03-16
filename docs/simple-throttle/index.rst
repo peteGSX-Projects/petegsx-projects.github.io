@@ -87,6 +87,8 @@ The software is located in my `DCCEXSimpleThrottle <https://github.com/peteGSX-P
 
 This uses the DCCEXProtocol Arduino library to interact with an EX-CommandStation using the native DCC-EX protocol rather than the WiThrottle protocol, ensuring future-proof feature compatibility with DCC-EX software updates.
 
+The code documentation is available using `this link <https://petegsx-projects.github.io/DCCEXSimpleThrottle/index.html>`_.
+
 Installation
 ------------
 
