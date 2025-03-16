@@ -20,15 +20,15 @@ After seeing various different throttle projects and ideas shared in the DCC-EX 
 
   This project is undergoing a major re-write and therefore I have temporarily removed all documentation until the new direction is at least useable.
 
-.. image:: /_static/images/serial-throttle/IMG_4998.JPG
-  :alt: Front view
-  :scale: 20%
+.. .. image:: /_static/images/serial-throttle/IMG_4998.JPG
+..   :alt: Front view
+..   :scale: 20%
 
-.. image:: /_static/images/serial-throttle/IMG_4997.JPG
-  :alt: Rear view
-  :scale: 20%
+.. .. image:: /_static/images/serial-throttle/IMG_4997.JPG
+..   :alt: Rear view
+..   :scale: 20%
 
-There is also a quick and dirty video available on `YouTube <https://www.youtube.com/watch?v=uzAAL3OKxE0>`_.
+.. There is also a quick and dirty video available on `YouTube <https://www.youtube.com/watch?v=uzAAL3OKxE0>`_.
 
 .. Hardware
 .. ========

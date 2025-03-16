@@ -175,6 +175,39 @@ Similar to setting up the WiFi connections above, set ``LOCAL_ROSTER_COUNT`` to 
   #define LOCAL_ROSTER_NAMES {"Local Loco 1001", "Local Loco 1002", "Local Loco 1003"}
   #define LOCAL_ROSTER_ADDRESSES {1001, 1002, 1003}
 
+Other settings
+--------------
+
+These are the other configuration settings that can be defined in "myConfig.h", with their default values:
+
+.. code-block:: c++
+
+  #define BUTTON_PIN_MODE INPUT_PULLUP
+  #define BUTTON_PIN_POLARITY LOW
+  #define BUTTON_DEBOUNCE_PERIOD 50
+  #define BUTTON_LONG_PRESS_PERIOD 500
+  #define BUTTON_DOUBLE_CLICK_PERIOD 250
+  #define BUTTON_DEGLITCH_PERIOD 10
+  #define INVERT_THROTTLE true
+  #define THROTTLE_STEP 1
+  #define THROTTLE_STEP_FASTER 2
+  #define THROTTLE_STEP_FASTEST 5
+  #define THROTTLE_STEP_FASTER_THRESHOLD 200
+  #define THROTTLE_STEP_FASTEST_THRESHOLD 125
+
+- ``BUTTON_PIN_MODE`` - Set to INPUT if using external pullup resistors, or if setting polarity to HIGH
+- ``BUTTON_PIN_POLARITY`` - Set to HIGH if necessary
+- ``BUTTON_DEBOUNCE_PERIOD`` - Adjust to suit the physical button characterstics if there are bounce issues (in milliseconds)
+- ``BUTTON_LONG_PRESS_PERIOD`` - Adjust as desired, higher values require the button to be held longer (in milliseconds)
+- ``BUTTON_DOUBLE_CLICK_PERIOD`` - Adjust as desired (in milliseconds)
+- ``BUTTON_DEGLITCH_PERIOD`` - Adjust to suit the physical button characterstics if there are glitch issues (in milliseconds)
+- ``INVERT_THROTTLE`` - Set to ``false`` if you prefer the rotary encoder knob to be rotated in the opposite direction to change speeds
+- ``THROTTLE_STEP`` - Amount to change speed by when rotating the rotary encoder slowly
+- ``THROTTLE_STEP_FASTER`` - Amount to change speed by when rotating the rotary encoder faster
+- ``THROTTLE_STEP_FASTEST`` - Amount to change speed by when rotating the rotary encoder at the fastest option
+- ``THROTTLE_STEP_FASTER_THRESHOLD`` - Adjust as desired to detect faster rotation of the rotary encoder (in milliseconds)
+- ``THROTTLE_STEP_FASTEST_THRESHOLD`` - Adjust as desired to detect the fastest rotation of the rotary encoder (in milliseconds)
+
 Operation
 =========
 
@@ -236,7 +269,7 @@ Throttle screen
   :alt: Throttle Screen
   :scale: 30%
 
-While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed.
+While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed. Rotating slowly, by default, will increment/decrement the speed by 1, however rotating faster will increment/decrement by 2, and faster again by 5. The thresholds and values for these can be customised as outlined in :ref:`simple-throttle/index:other settings`.
 
 If speed is greater than zero:
 
