@@ -121,14 +121,15 @@
 <li><p><a class="reference internal" href="#configuration" id="id5">Configuration</a></p></li>
 <li><p><a class="reference internal" href="#configuring-wifi-and-ex-commandstation-details" id="id6">Configuring WiFi and EX-CommandStation details</a></p></li>
 <li><p><a class="reference internal" href="#configuring-a-local-roster" id="id7">Configuring a local roster</a></p></li>
+<li><p><a class="reference internal" href="#other-settings" id="id8">Other settings</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#operation" id="id8">Operation</a></p>
+<li><p><a class="reference internal" href="#operation" id="id9">Operation</a></p>
 <ul>
-<li><p><a class="reference internal" href="#select-server-menu" id="id9">“Select server” menu</a></p></li>
-<li><p><a class="reference internal" href="#select-loco-menu" id="id10">“Select loco” menu</a></p></li>
-<li><p><a class="reference internal" href="#select-action-menu" id="id11">“Select action” menu</a></p></li>
-<li><p><a class="reference internal" href="#throttle-screen" id="id12">Throttle screen</a></p></li>
+<li><p><a class="reference internal" href="#select-server-menu" id="id10">“Select server” menu</a></p></li>
+<li><p><a class="reference internal" href="#select-loco-menu" id="id11">“Select loco” menu</a></p></li>
+<li><p><a class="reference internal" href="#select-action-menu" id="id12">“Select action” menu</a></p></li>
+<li><p><a class="reference internal" href="#throttle-screen" id="id13">Throttle screen</a></p></li>
 </ul>
 </li>
 </ul>
@@ -285,9 +286,41 @@
 </pre></div>
 </div>
 </section>
+<section id="other-settings">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Other settings</a><a class="headerlink" href="#other-settings" title="Permalink to this heading"></a></h3>
+<p>These are the other configuration settings that can be defined in “myConfig.h”, with their default values:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define BUTTON_PIN_MODE INPUT_PULLUP</span>
+<span class="cp">#define BUTTON_PIN_POLARITY LOW</span>
+<span class="cp">#define BUTTON_DEBOUNCE_PERIOD 50</span>
+<span class="cp">#define BUTTON_LONG_PRESS_PERIOD 500</span>
+<span class="cp">#define BUTTON_DOUBLE_CLICK_PERIOD 250</span>
+<span class="cp">#define BUTTON_DEGLITCH_PERIOD 10</span>
+<span class="cp">#define INVERT_THROTTLE true</span>
+<span class="cp">#define THROTTLE_STEP 1</span>
+<span class="cp">#define THROTTLE_STEP_FASTER 2</span>
+<span class="cp">#define THROTTLE_STEP_FASTEST 5</span>
+<span class="cp">#define THROTTLE_STEP_FASTER_THRESHOLD 200</span>
+<span class="cp">#define THROTTLE_STEP_FASTEST_THRESHOLD 125</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_PIN_MODE</span></code> - Set to INPUT if using external pullup resistors, or if setting polarity to HIGH</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_PIN_POLARITY</span></code> - Set to HIGH if necessary</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_DEBOUNCE_PERIOD</span></code> - Adjust to suit the physical button characterstics if there are bounce issues (in milliseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_LONG_PRESS_PERIOD</span></code> - Adjust as desired, higher values require the button to be held longer (in milliseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_DOUBLE_CLICK_PERIOD</span></code> - Adjust as desired (in milliseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUTTON_DEGLITCH_PERIOD</span></code> - Adjust to suit the physical button characterstics if there are glitch issues (in milliseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INVERT_THROTTLE</span></code> - Set to <code class="docutils literal notranslate"><span class="pre">false</span></code> if you prefer the rotary encoder knob to be rotated in the opposite direction to change speeds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THROTTLE_STEP</span></code> - Amount to change speed by when rotating the rotary encoder slowly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THROTTLE_STEP_FASTER</span></code> - Amount to change speed by when rotating the rotary encoder faster</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THROTTLE_STEP_FASTEST</span></code> - Amount to change speed by when rotating the rotary encoder at the fastest option</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THROTTLE_STEP_FASTER_THRESHOLD</span></code> - Adjust as desired to detect faster rotation of the rotary encoder (in milliseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">THROTTLE_STEP_FASTEST_THRESHOLD</span></code> - Adjust as desired to detect the fastest rotation of the rotary encoder (in milliseconds)</p></li>
+</ul>
+</section>
 </section>
 <section id="operation">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">Operation</a><a class="headerlink" href="#operation" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Operation</a><a class="headerlink" href="#operation" title="Permalink to this heading"></a></h2>
 <p>When navigating menus, scroll up and down with the rotary encoder, and click the rotary encoder’s button to select the highlighted item. Depending on the current context, the rotary encoder button can be double clicked or held to perform different actions.</p>
 <p>During operation, there are three contexts on screen to switch through:</p>
 <ul class="simple">
@@ -297,12 +330,12 @@
 <li><p>Throttle screen</p></li>
 </ul>
 <section id="select-server-menu">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">“Select server” menu</a><a class="headerlink" href="#select-server-menu" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">“Select server” menu</a><a class="headerlink" href="#select-server-menu" title="Permalink to this heading"></a></h3>
 <p>When starting, you will first see the “Select server” menu (except on Bluepill with a serial connection). Select one of the EX-CommandStation entries configured in the <a class="reference internal" href="#configuring-wifi-and-ex-commandstation-details"><span class="std std-ref">Configuring WiFi and EX-CommandStation details</span></a> section to connect to it.</p>
 <p>Once connected, the <a class="reference internal" href="#select-loco-menu"><span class="std std-ref">“Select loco” menu</span></a> will be displayed.</p>
 </section>
 <section id="select-loco-menu">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">“Select loco” menu</a><a class="headerlink" href="#select-loco-menu" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">“Select loco” menu</a><a class="headerlink" href="#select-loco-menu" title="Permalink to this heading"></a></h3>
 <a class="reference internal image-reference" href="../_images/select-loco.png"><img alt="Select Loco menu" src="../_images/select-loco.png" style="width: 359.4px; height: 441.59999999999997px;" /></a>
 <p>Providing a roster of locomotives has been configured in the connected EX-CommandStation, selecting one from the menu will allow you to control it.</p>
 <p>If you have configured a local roster as per <a class="reference internal" href="#configuring-a-local-roster"><span class="std std-ref">Configuring a local roster</span></a>, then these will be available in this menu, prefaced by a <code class="docutils literal notranslate"><span class="pre">*</span></code>.</p>
@@ -314,7 +347,7 @@
 <p>Once either a Loco is selected, or the programming track is read, the <a class="reference internal" href="#throttle-screen"><span class="std std-ref">Throttle screen</span></a> will be displayed. If reading the Loco on the programming track fails, you will be returned to the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">loco</span></code> menu.</p>
 </section>
 <section id="select-action-menu">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">“Select action” menu</a><a class="headerlink" href="#select-action-menu" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">“Select action” menu</a><a class="headerlink" href="#select-action-menu" title="Permalink to this heading"></a></h3>
 <a class="reference internal image-reference" href="../_images/select-action.png"><img alt="Select Action menu" src="../_images/select-action.png" style="width: 341.7px; height: 400.5px;" /></a>
 <p>This menu allows you to perform various track power related actions.</p>
 <ul class="simple">
@@ -328,9 +361,9 @@
 </ul>
 </section>
 <section id="throttle-screen">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">Throttle screen</a><a class="headerlink" href="#throttle-screen" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Throttle screen</a><a class="headerlink" href="#throttle-screen" title="Permalink to this heading"></a></h3>
 <a class="reference internal image-reference" href="../_images/throttle-screen.png"><img alt="Throttle Screen" src="../_images/throttle-screen.png" style="width: 348.0px; height: 409.8px;" /></a>
-<p>While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed.</p>
+<p>While on this screen, rotating the rotary encoder will increase or decrease the locomotive speed. Rotating slowly, by default, will increment/decrement the speed by 1, however rotating faster will increment/decrement by 2, and faster again by 5. The thresholds and values for these can be customised as outlined in <a class="reference internal" href="#other-settings"><span class="std std-ref">Other settings</span></a>.</p>
 <p>If speed is greater than zero:</p>
 <ul class="simple">
 <li><p>Single click the rotary encoder button to stop the selected locomotive</p></li>
