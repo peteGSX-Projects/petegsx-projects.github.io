@@ -89,7 +89,7 @@ The repository is setup to enable PlatformIO to be used with VSCode and will aut
 - bodmer/TFT_eSPI
 - avandalen/Switch
 
-The platformio.ini file is written to configure the TFT_eSPI library correctly according to the :ref:`dcc-ex-turntable-controller/index:pins and connections` section below, meaning manual configuration of the TFT_eSPI library shouldn't be required.
+The platformio.ini file is written to configure the TFT_eSPI library correctly according to the :ref:`dccex-turntable-controller/index:pins and connections` section below, meaning manual configuration of the TFT_eSPI library shouldn't be required.
 
 If you prefer, you can also use the Arduino IDE, which means you will need to:
 

@@ -4,7 +4,7 @@ DCC-EX Rotary Encoder (archived)
 
 .. warning:: 
 
-  This repository has now been marked as a public archive as the project has been superceded by the new :doc:`/dcc-ex-turntable-controller/index` project instead.
+  This repository has now been marked as a public archive as the project has been superceded by the new :doc:`/dccex-turntable-controller/index` project instead.
 
   If you're looking to control a DCC-EX turntable with this software, I highly recommend looking at the DCC-EX Turntable Controller instead, as this project will receive no further development.
 
