@@ -154,7 +154,7 @@ Remember to cross Rx/Tx so that the Blackpill Rx connects to the CommandStation'
     - PB15
   * - GC9A01 DIN
     - 23
-    - PA6
+    - PA7
   * - GC9A01 CLK
     - 18
     - PA5
